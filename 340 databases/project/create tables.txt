@@ -1,0 +1,87 @@
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS `player`;
+DROP TABLE IF EXISTS `job`;
+DROP TABLE IF EXISTS `world`;
+DROP TABLE IF EXISTS `item`;
+DROP TABLE IF EXISTS `world_item`;
+DROP TABLE IF EXISTS `player_item`;
+SET FOREIGN_KEY_CHECKS = 1;
+
+CREATE TABLE `job` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL UNIQUE,
+  `skills` TEXT,
+  `levels` TEXT,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `world` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL UNIQUE,
+  `climate` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL UNIQUE,
+  `class` varchar(255),
+  `level` int(11) DEFAULT '1',
+  `jid` int(11),
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`jid`) REFERENCES `job`(`id`)
+);
+
+CREATE TABLE `world_item`(
+  `wid` int(11) NOT NULL DEFAULT '0',
+  `iid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`wid`,`iid`),
+  FOREIGN KEY (`wid`) REFERENCES `world`(`id`),
+  FOREIGN KEY (`iid`) REFERENCES `item`(`id`)
+);
+
+CREATE TABLE `player` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `jid` int(11) NOT NULL DEFAULT '1',
+  `wid` int(11) NOT NULL DEFAULT '1',
+  `species` varchar(255),
+  PRIMARY KEY (`id`),
+  CONSTRAINT uq_name UNIQUE (`first_name`, `last_name`),
+  FOREIGN KEY (`jid`) REFERENCES `job`(`id`),
+  FOREIGN KEY (`wid`) REFERENCES `world`(`id`)
+);
+
+CREATE TABLE `player_item`(
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pid` int(11) NOT NULL DEFAULT '0',
+  `iid` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`pid`) REFERENCES `player`(`id`),
+  FOREIGN KEY (`iid`) REFERENCES `item`(`id`)
+);
+
+INSERT INTO world(name, climate) VALUES ("None", "varies");
+INSERT INTO world(name, climate) VALUES ("Clip", "dry");
+INSERT INTO world(name, climate) VALUES ("Glup","wet");
+INSERT INTO world(name, climate) VALUES ("Oxe","moderate");
+INSERT INTO job(title, skills, levels) VALUES ("none","","anything");
+INSERT INTO job(title, skills, levels) VALUES ("archer","bow","scout");
+INSERT INTO job(title, skills, levels) VALUES ("farmer","planting, and plant identification","");
+INSERT INTO job(title, skills, levels) VALUES ("hunter","","");
+INSERT INTO item(name, class, level, jid) VALUES ("bone knife","basic",2, 1);
+INSERT INTO item(name, class, level, jid) VALUES ("plow","tool", 1, 3);
+INSERT INTO item(name, class, level, jid) VALUES ("bow","super",34, 2);
+INSERT INTO player(first_name, last_name, jid, wid, species) VALUES ("Jess","Cri",1,1, NULL);
+INSERT INTO player(first_name, last_name, jid, wid, species) VALUES ("Thunder","Hill",3,2, "Mer");
+INSERT INTO player(first_name, last_name, jid, wid, species) VALUES ("Po","Ret",3,3, NULL);
+INSERT INTO world_item(wid, iid) VALUES (2, 1);
+INSERT INTO world_item(wid, iid) VALUES (2, 3);
+INSERT INTO world_item(wid, iid) VALUES (4, 2);
+INSERT INTO player_item(pid, iid) VALUES (2, 1);
+INSERT INTO player_item(pid, iid) VALUES (2, 3);
+INSERT INTO player_item(pid, iid) VALUES (3, 2);
+INSERT INTO player_item(pid, iid) VALUES (3, 1);
+INSERT INTO player_item(pid, iid) VALUES (1, 3);
+INSERT INTO player_item(pid, iid) VALUES (3, 3);
