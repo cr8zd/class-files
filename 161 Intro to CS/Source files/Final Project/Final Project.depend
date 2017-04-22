@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1417660746 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\final project\book.cpp
+	<string>
+	"Book.h"
+	"Patron.h"
+
+1417659842 c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\final project\book.h
+
+1417660036 c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\final project\patron.h
+	<stdio.h>
+	<vector>
+
+1417828231 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\final project\library.cpp
+	<iostream>
+	<iomanip>
+	"Library.h"
+	"Book.h"
+	"Patron.h"
+
+1417684811 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\final project\menu.cpp
+	<iostream>
+	<climits>
+	"Library.h"
+	"Patron.h"
+	"Book.h"
+
+1417660247 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\final project\patron.cpp
+	<string>
+	"Patron.h"
+	"Book.h"
+
+1417660897 c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\final project\library.h
+	<vector>
+	<stdio.h>
+

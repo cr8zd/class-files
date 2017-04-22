@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1414200458 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\finalist\finalist.cpp
+	<iostream>
+	<iomanip>
+	<cstdlib>
+	<ctime>
+	<new>
+

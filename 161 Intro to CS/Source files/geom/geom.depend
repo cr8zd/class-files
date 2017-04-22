@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1416901436 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\geom\geom.cpp
+	<iostream>
+	<cmath>
+	<cstdlib>
+	<iomanip>
+	<new>
+

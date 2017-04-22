@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1413165169 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\arcade\arcade.cpp
+	<iostream>
+	<cmath>
+

@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1416728828 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\carlot\carlot.cpp
+	<iostream>
+	<vector>
+	<string>
+	<iomanip>
+	<cstdlib>
+	<climits>
+
