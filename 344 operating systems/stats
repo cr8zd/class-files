@@ -1,0 +1,178 @@
+#!/bin/bash
+
+#Jennifer Frase CS344 Assignment 1 stats
+#calculates the average and median of lines of numbers
+#takes a command line argumnet where the first two characters are -r or -c 
+#where -r means calculate based on the rows and -c means calculate based on
+#the columns 
+#takes a file as a second  command line argument or from stdin which is full
+#of numbers that form a grid, so that all rows have the same number of columns
+#note that rows and columns do not have to be the same number
+
+
+#check that there is at least one command line argument
+if [ $# -ge 1 ] 
+  then
+
+     #check that there are not more than 2 command line arguments
+     if [ $# -lt 3 ]
+       then
+         lines=$1 #sets lines to the first command line argument
+        
+         #if the first two characters in lines are -r
+  	 if [ ${lines:0:2} == -r ]
+      	   then
+
+             #if there are 2 command line arguments check if the second is
+             #a readable file otherwise print message to stderr and exit with 1
+             if [ $# -eq 2 ]
+               then
+
+                 if [ ! -r $2 ]
+                   then
+                     echo "stats: cannot read "$2 >&2
+                     exit 1
+                 fi
+             fi
+      
+             echo -e "Average\tMedian"
+
+            #read each line from the file if there was a second command line
+            #argument or from the stdin
+            #the -a will store the line as an array
+             while read -a LINE 
+               do          
+                 sum=0
+                 count=${#LINE[@]} #number of elements in LINE
+              
+                 #adds the value at each index in LINE to sum
+                 for a in "${LINE[@]}"
+                   do
+                     sum=`expr $sum + $a`
+                 done
+
+                 average=`expr $sum / $count`
+
+                 #adds 1 to the average if the decimal was .5 or greager
+                 if [ `expr \( $sum % $count \) \* 2` -ge $count ]
+                   then
+                     average=`expr $average + 1`
+                 fi 
+
+                 count=`expr $count / 2` #finds the middle index
+                 #loads each element into the stdin so the sort can sort them
+                 #after which they are stored in sorted, ie sorts LINE
+                 sorted=($(for a in ${LINE[@]}
+                             do
+                               echo $a                                  
+                           done | sort -g))
+                 median=${sorted[count]} #value at the middle index
+                 echo -e "$average\t$median"      
+             done < ${2:-/dev/stdin} #says get the values from the second
+                                     #command line if there otherwise from
+                                     #stdin
+
+         #if the first two characters in lines are -c       
+         elif [ ${lines:0:2} == -c ]
+           then
+             declare -a LINE #declare the LINE array so that is has a
+                             #broader scope from where it is first used
+
+             #both if and else with save the first line as an array
+             #if second command line argument is given check that it is 
+             #a readable file otherwise print error message to stderr and
+             #exit
+             if [ $# -eq 2 ]
+               then
+
+                 if [ -r $2 ]
+                   then
+                     exec 3< $2
+                     read -u 3 -a LINE
+                 else
+                     echo "stats: cannot read "$2 >&2
+                     exit 1
+                 fi
+             #second command line argument not given so read from stdin
+             else
+                 read -a LINE  
+             fi
+
+             echo "Average"
+             count=${#LINE[@]} #gets the number of elements in LINE
+             i=1 #counter
+             declare -a average #declaring the array average so it has a
+                                #broader scope than where it is first used
+             declare -a median #declare the array median so it has a
+                               #broader scope than where it is first used
+	     
+             #repeats while i is less than count
+             # ie it goes through every column
+             while [ $i -le $count ]
+               do
+                 col=$(cut -f"$i" ${2:-/dev/stdin}) #cuts off the specified
+                                        # column from either the second command
+                                        #line argument if given or from stdin
+                                        #i is the column being seperatedil  
+                                        #doesn't work with piping
+                 arr=($col) #makes col an array
+                 rows=${#arr[@]} #counts the number of rows, it elements in arr
+                 #prints each element in arr so that sort can sort them
+                 #the result is then stored back into sorted
+                 sorted=($(for a in ${arr[@]}
+                             do
+                               echo $a
+                           done | sort -g))
+                 sum=0 #used to find the sum of a column
+
+                 #each element in added to the existing sum
+                 for a in ${sorted[@]}
+                   do
+                     sum=`expr $sum + $a`
+                 done
+
+                 i=`expr $i - 1` #cut requires i to start at 1, but indexes
+                                 #start at 0 so have to decrease i by 1
+                                 #both represent the same column though
+                 average[i]=`expr $sum / $rows` #store the average in the array
+                                                #at the appropriate index
+
+                 #if there was a decimal of .5 or greater then average is
+                 #increased by 1
+                 if [ `expr \( $sum % $rows \) \* 2` -ge $rows ]
+                   then
+                     average[i]=`expr ${average[i]} + 1`
+                 fi
+
+                 rows=`expr $rows / 2` #middle index
+                 median[i]=${sorted[rows]} #stores the value at the middle
+                                           #index of sorted  in the
+                                           # appropriate index in average
+                 i=`expr $i + 2` #add two back onto i to increment it by 1
+                                 #from the beginning of this while run
+             done              
+
+             printf "%b\t" "${average[@]}" #print the array spaced with tab
+             echo -e "\nMedian" #print median header: -e allows for the new
+                                #line character to be executed instead of
+                                #printed
+             printf "%b\t" "${median[@]}" #print the array spaced with tab
+             printf "\n" #print a new line
+
+         #first command line argument didn't start with c or r 
+         else
+             echo "Usage: stats {-rows|-cols} [file]" >&2
+             exit 1
+         fi
+
+     #there were more than 2 command line arguments
+     else
+         echo "Usage: stats {-rows|-cols} [file]" >&2
+         exit 1
+     fi
+
+#there were not enough command line arguments    
+else
+     echo "Usage: stats {-rows|cols} [file]" >&2
+     exit 1 
+fi
