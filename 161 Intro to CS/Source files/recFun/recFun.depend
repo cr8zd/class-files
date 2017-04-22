@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1414740207 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\recfun\recfun.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+

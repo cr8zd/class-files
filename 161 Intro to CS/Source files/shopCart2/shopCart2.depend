@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1421272723 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\shopcart2\shopcart2.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<climits>
+	<iomanip>
+	<vector>
+

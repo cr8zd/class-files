@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1416120345 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\symarrays\symarrays.cpp
+	<iostream>
+	<new>
+	<cstdlib>
+	<cstring>
+	<climits>
+
+1416082354 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\symarrays\symarrays.cpp 5 3 4
+	<iostream>
+	<new>
+	<cstdlib>
+	<cstring>
+	<climits>
+

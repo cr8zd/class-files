@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1415516473 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\stringmix\stringmix.cpp
+	<iostream>
+	<cstring>
+	<cstdlib>
+	<ctime>
+	<climits>
+

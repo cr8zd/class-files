@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1414550354 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\randfun2\randfun.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+
+1414743857 source:c:\users\jennifer\desktop\osu classes\cs161 intro to cs\source files\randfun(2)\randfun.cpp
+	<iostream>
+	<string>
+	<cstdlib>
+	<ctime>
+
