@@ -1,0 +1,14 @@
+﻿Build started 4/12/2015 1:13:51 PM.
+     1>Project "C:\Users\Jennifer\Desktop\Classes\271\Project32\Project.vcxproj" on node 2 (Build target(s)).
+     1>_MASM:
+         Assembling template.asm...
+         cmd.exe /C "C:\Users\Jennifer\AppData\Local\Temp\tmp8885488725ed4e079be0ee9fcad257a8.cmd"
+         ml.exe /c /nologo /Sg /WX /Zi /Fo"Debug\template.obj" /Fl"Project.lst" /I "c:\Irvine" /W3 /errorReport:prompt  /Tatemplate.asm
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jennifer\Desktop\Classes\271\Project32\Debug\Project.exe" /NOLOGO /LIBPATH:c:\Irvine user32.lib irvine32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jennifer\Desktop\Classes\271\Project32\Debug\Project.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Jennifer\Desktop\Classes\271\Project32\Debug\Project.lib" /MACHINE:X86 /SAFESEH:NO Debug\template.obj
+         Project.vcxproj -> C:\Users\Jennifer\Desktop\Classes\271\Project32\Debug\Project.exe
+     1>Done Building Project "C:\Users\Jennifer\Desktop\Classes\271\Project32\Project.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.94

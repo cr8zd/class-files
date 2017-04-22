@@ -1,0 +1,15 @@
+﻿Build started 5/10/2015 10:58:48 PM.
+     1>Project "C:\Users\Jennifer\Desktop\Classes\271\week 6\Project32\Prog4_CompNums.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Project.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>_MASM:
+         Assembling Prog4_CompNums.asm...
+         cmd.exe /C "C:\Users\Jennifer\AppData\Local\Temp\tmp38abf92aa3e4425181664534155115de.cmd"
+         ml.exe /c /nologo /Sg /WX /Zi /Fo"Debug\Prog4_CompNums.obj" /Fl"Prog4_CompNums.lst" /I "c:\Irvine" /W3 /errorReport:prompt  /TaProg4_CompNums.asm
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jennifer\Desktop\Classes\271\week 6\Project32\Debug\Prog4_CompNums.exe" /NOLOGO /LIBPATH:c:\Irvine user32.lib irvine32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jennifer\Desktop\Classes\271\week 6\Project32\Debug\Prog4_CompNums.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Jennifer\Desktop\Classes\271\week 6\Project32\Debug\Prog4_CompNums.lib" /MACHINE:X86 /SAFESEH:NO Debug\Prog4_CompNums.obj
+         Prog4_CompNums.vcxproj -> C:\Users\Jennifer\Desktop\Classes\271\week 6\Project32\Debug\Prog4_CompNums.exe
+     1>Done Building Project "C:\Users\Jennifer\Desktop\Classes\271\week 6\Project32\Prog4_CompNums.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.34

@@ -1,0 +1,15 @@
+﻿Build started 4/17/2015 1:02:24 AM.
+     1>Project "C:\Users\Jennifer\Desktop\Classes\271\Week 1\Assignments\Prog1_math\Prog1_math.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Project.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+     1>_MASM:
+         Assembling prog1_math.asm...
+         cmd.exe /C "C:\Users\Jennifer\AppData\Local\Temp\tmpbac00ac63aae49389f22ae2e32867a62.cmd"
+         ml.exe /c /nologo /Sg /WX /Zi /Fo"Debug\prog1_math.obj" /Fl"Prog1_math.lst" /I "c:\Irvine" /W3 /errorReport:prompt  /Taprog1_math.asm
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jennifer\Desktop\Classes\271\Week 1\Assignments\Prog1_math\Debug\Prog1_math.exe" /NOLOGO /LIBPATH:c:\Irvine user32.lib irvine32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jennifer\Desktop\Classes\271\Week 1\Assignments\Prog1_math\Debug\Prog1_math.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE:NO /IMPLIB:"C:\Users\Jennifer\Desktop\Classes\271\Week 1\Assignments\Prog1_math\Debug\Prog1_math.lib" /MACHINE:X86 /SAFESEH:NO Debug\prog1_math.obj
+         Prog1_math.vcxproj -> C:\Users\Jennifer\Desktop\Classes\271\Week 1\Assignments\Prog1_math\Debug\Prog1_math.exe
+     1>Done Building Project "C:\Users\Jennifer\Desktop\Classes\271\Week 1\Assignments\Prog1_math\Prog1_math.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.35
