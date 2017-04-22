@@ -1,0 +1,42 @@
+rFor more info see: https://docs.c9.io/v1.0/docs/setting-up-mysql
+
+Example...
+
+To start the mysql command line interface run the following 
+command on the bash command line:
+
+    mysql-ctl cli
+
+To set the default database for the bees project type:
+
+    use c9
+
+You should see a mysql> prompt now...
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE Beekeeper (
+    -> id int(11) AUTO_INCREMENT,
+    -> firstName varchar(50) NOT NULL,
+    -> lastName varchar(50) NOT NULL,
+    -> street varchar(255) NOT NULL,
+    -> city varchar(255) NOT NULL,
+    -> state varchar (50) NOT NULL,
+    -> zipcode int(11) NOT NULL,
+    -> phone varchar(20) NOT NULL,
+    -> email varchar(255) NOT NULL,
+    -> PRIMARY KEY (id),
+    -> UNIQUE KEY firstName(firstName, lastName)
+    -> )ENGINE=InnoDB;
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> show tables;
++--------------+
+| Tables_in_c9 |
++--------------+
+| Beekeeper    |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> 

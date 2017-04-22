@@ -1,0 +1,39 @@
+CREATE TABLE Beekeeper (
+id int(11) AUTO_INCREMENT,
+firstName varchar(50) NOT NULL,
+lastName varchar(50) NOT NULL,
+street varchar(255) NOT NULL,
+city varchar(255) NOT NULL,
+state varchar (50) NOT NULL,
+zipcode int(11) NOT NULL,
+phone varchar(20) NOT NULL,
+email varchar(255) NOT NULL,
+PRIMARY KEY (id),
+UNIQUE KEY firstName(firstName, lastName)
+)ENGINE=InnoDB;
+
+
+CREATE TABLE HazardousMaterial (
+id int(11) AUTO_INCREMENT,
+name varchar(50),
+casID int(11),
+comments varchar(500),
+toxicityLevel varchar(25),
+alternative varchar(50),
+PRIMARY KEY (id),
+UNIQUE KEY hazmatname (name)
+)ENGINE=InnoDB;
+
+
+
+CREATE TABLE Plants(
+id int(11) AUTO_INCREMENT,
+commonName VARCHAR(50) NOT NULL UNIQUE,
+sciName VARCHAR(50) NOT NULL UNIQUE,
+zone VARCHAR(50) NOT NULL,
+light VARCHAR(50) NOT NULL,
+information TEXT NOT NULL,
+PRIMARY KEY (id)
+)ENGINE=InnoDB;
+
+

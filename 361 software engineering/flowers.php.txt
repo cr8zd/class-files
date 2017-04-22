@@ -1,0 +1,556 @@
+<?php 
+	$pageTitle = "Bee Keepers";
+	include('inc/header.php'); 
+
+	//Add flower to Flower table
+	if(isset($_POST['record_flower'])) {
+		$sciName = $_POST['sciName'];
+		$comName = $_POST['comName'];
+		$zone = $_POST['zone'];
+		$light = $_POST['light'];
+		$height = $_POST['height'];
+		$width = $_POST['width'];
+		$bloomT = $_POST['bloomT'];
+		$link = $_POST['link'];
+		
+		//Unit testing on form input.
+		if(!empty($sciName)) {
+			$error_msg1 = "PASS first name not empty.<br>";
+		}
+		else{
+			$error_msg1 = "FAIL first name empty.<br>";
+		}
+	    if(!empty($comName)) {
+			$error_msg2 = "PASS last name not empty.<br>";
+		}
+		else{
+			$error_msg2 = "FAIL last name empty.<br>";
+		}
+		if(!empty($zone)) {
+			$error_msg3 = "PASS zone address not empty.<br>";
+		}
+		else{
+			$error_msg3 = "FAIL zone address empty.<br>";
+		}
+		if(!empty($light)) {
+			$error_msg4 = "PASS light not empty.<br>";
+		}
+		else{
+			$error_msg4 = "FAIL light empty.<br>";
+		}
+		if(!empty($height)) {
+			$error_msg5 = "PASS height not empty.<br>";
+		}
+		else{
+			$error_msg5 = "FAIL height empty.<br>";
+		}
+		if(!empty($width)) {
+			$error_msg6 = "PASS width not empty.<br>";
+		}
+		else{
+			$error_msg6 = "FAIL width empty.<br>";
+		}
+		if(!empty($bloomT)){
+			$error_msg7 = "PASS bloomT number not empty.<br>";
+		}
+		else{
+			$error_msg7 = "FAIL bloomT number empty.<br>";
+		}
+		if(!empty($link)) {
+			$error_msg8 = "PASS link address not empty.<br>";
+		}
+		else{
+			$error_msg8 = "FAIL link address empty.<br>";
+		}
+		
+		//Checks if record_flower form inputs are empty.
+		if(empty($sciName)) {
+			$error_msg = "A first name is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($comName)) {
+			$error_msg = "A last name is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($zone)) {
+			$error_msg = "A zone address is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($light)) {
+			$error_msg = "A light is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($height)) {
+			$error_msg = "A height is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($width)) {
+			$error_msg = "A width is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($bloomT)){
+			$error_msg = "A bloomT number is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($link)) {
+			$error_msg = "A link address to more information is required.<br>";
+			$valid = 0;
+		}
+		else {
+			$valid=1;
+		}
+		
+		
+		//If no errors, add the record_flower to database in Flower table.
+		if($valid != 0 ) {
+			$stmt = $mysqli->prepare
+				("INSERT INTO Flower (sciName, comName, zone, light, height, width, bloomT, link) 
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+			$stmt->bind_param('sssssiss', $sciName, $comName, $zone, $light, $height, $width, $bloomT, $link);
+			$stmt->execute();
+			$error_msgD = "FAIL could not add.";
+			if(!$stmt->execute()){
+				$error_msgD = "PASS added to row.";
+			}
+			
+			$stmt->close();
+		}
+	}
+	
+
+	//Update flower in Flower table
+	if(isset($_POST['update_flower'])) {
+		$flower_id=$_POST['id'];
+		$sciName = $_POST['sciName'];
+		$comName = $_POST['comName'];
+		$zone = $_POST['zone'];
+		$light = $_POST['light'];
+		$height = $_POST['height'];
+		$width = $_POST['width'];
+		$bloomT = $_POST['bloomT'];
+		$link = $_POST['link'];
+		
+		//Unit testing on form input.
+		if(!empty($sciName)) {
+			$error_msg9 = "PASS first name not empty.<br>";
+		}
+		else{
+			$error_msg9 = "FAIL first name empty.<br>";
+		}
+	    if(!empty($comName)) {
+			$error_msg10 = "PASS last name not empty.<br>";
+		}
+		else{
+			$error_msg10 = "FAIL last name empty.<br>";
+		}
+		if(!empty($zone)) {
+			$error_msg11 = "PASS zone address not empty.<br>";
+		}
+		else{
+			$error_msg11 = "FAIL zone address empty.<br>";
+		}
+		if(!empty($light)) {
+			$error_msg12 = "PASS light not empty.<br>";
+		}
+		else{
+			$error_msg12 = "FAIL light empty.<br>";
+		}
+		if(!empty($height)) {
+			$error_msg13 = "PASS height not empty.<br>";
+		}
+		else{
+			$error_msg13 = "FAIL height empty.<br>";
+		}
+		if(!empty($width)) {
+			$error_msg14 = "PASS width not empty.<br>";
+		}
+		else{
+			$error_msg14 = "FAIL width empty.<br>";
+		}
+		if(!empty($bloomT)){
+			$error_msg15 = "PASS bloomT number not empty.<br>";
+		}
+		else{
+			$error_msg15 = "FAIL bloomT number empty.<br>";
+		}
+		if(!empty($link)) {
+			$error_msg16 = "PASS link not empty.<br>";
+		}
+		else{
+			$error_msg16 = "FAIL link empty.<br>";
+		}
+		
+		//Checks if update_flower form inputs are empty.
+		if(empty($sciName)) {
+			$error_msg = "A scientific name is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($comName)) {
+			$error_msg = "A common name is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($zone)) {
+			$error_msg = "A zone is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($light)) {
+			$error_msg = "A light is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($height)) {
+			$error_msg = "A height is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($width)) {
+			$error_msg = "A width is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($bloomT)){
+			$error_msg = "A bloom time is required.<br>";
+			$valid = 0;
+		}
+		else if(empty($link)) {
+			$error_msg = "A link address to more information is required.<br>";
+			$valid = 0;
+		}
+		else {
+			$valid=1;
+		}
+		//If no errors, Update the flower in Flower table.
+		if($valid != 0 ) {
+			$stmt = $mysqli->prepare
+				("UPDATE Flower 
+					SET sciName = ?, comName = ?, zone = ?, light = ?, height = ?, width = ?,
+					bloomT =?, link = ?
+					WHERE id = $flower_id");
+			$stmt->bind_param('sssssiss', $sciName, $comName, $zone, $light, $height, $width, $bloomT, $link);
+			$stmt->execute();
+			$error_msgD = "PASS updated row.";
+			if(!$stmt->execute()){
+				$error_msgD = "FAIL could not update.";
+			}
+			$stmt->close();
+		}
+	}
+	
+	//Delete a flower from database in Flower table
+	if(isset($_POST['deleteRecord'])){
+		$flower_id = $_POST['id'];
+		if(!($stmt = $mysqli->prepare("DELETE FROM Flower WHERE id = '$flower_id'"))){
+			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}
+		if(!$stmt->execute()){
+			$error_msgD = "FAIL could not delete.";
+		}
+		else{
+			$error_msgD = "PASS deleted row.";
+		}
+	}
+	
+	//get all flowers from Flower table
+	$query = "SELECT id, sciName, comName, zone, light, height, width, bloomT, link
+			  FROM Flower ORDER BY comName ASC";
+	$flowers = $mysqli->query($query);
+
+?>
+<div id="intro">
+	<h2>The Bee Keepers</h2>
+	<p>Add a bee keeper here.</p>
+</div>
+
+<!-- ADD Flower to Flower table-->
+
+<div>
+	<h2>Add a new Bee Keeper</h2>
+	<form action="flower.php" method="post">
+		<table>
+			<tr>
+				<th>
+					<label for"sciName">Scientific Name</label>
+				</th>
+				<td>
+					<input type="text" name="sciName">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"comName">Common Name</label>
+				</th>
+				<td>
+					<input type="text" name="comName">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"zone">Zone</label>
+				</th>
+				<td>
+					<input type="text" name="zone">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"light">Light</label>
+				</th>
+				<td>
+					<input type="text" name="light">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"height">Height</label>
+				</th>
+				<td>
+					<input type="text" name="height">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"width">Width</label>
+				</th>
+				<td>
+					<input type="text" name="width">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"bloomT">Bloom Time</label>
+				</th>
+				<td>
+					<input type="text" name="bloomT">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"link">More Information</label>
+				</th>
+				<td>
+					<input type="text" name="link">
+				</td>
+			</tr>
+		</table>
+		<div id="record_btn">
+			<input type="submit" name="record_flower" value="ADD">
+		</div>
+		<div id="err">
+			<?php
+				if(!empty($error_msg))
+				{
+					echo $error_msg;
+				}
+				if(!empty($error_msg1))
+				{
+					echo $error_msg1;
+				}
+				if(!empty($error_msg2))
+				{
+					echo $error_msg2;
+				}
+				if(!empty($error_msg3))
+				{
+					echo $error_msg3;
+				}
+				if(!empty($error_msg4))
+				{
+					echo $error_msg4;
+				}
+				if(!empty($error_msg5))
+				{
+					echo $error_msg5;
+				}
+				if(!empty($error_msg6))
+				{
+					echo $error_msg6;
+				}
+				if(!empty($error_msg7))
+				{
+					echo $error_msg7;
+				}
+				if(!empty($error_msg8))
+				{
+					echo $error_msg8;
+				}
+			?>
+		</div>
+	</form>
+	
+	<!-- UPDATE flower in Flower table-->
+	<form action="flower.php" method="post">
+		<table>
+			<tr>
+				<th>
+					<label for"id">Who do you want to edit?</label>
+				</th>
+				<td>
+					<select name="id">
+						<?php foreach ($flowers as $flower) :
+							echo '<option value="'. $flower['id']. '">'.
+							$flower['sciName']. ' '. $flower['comName']. '</option>';
+							endforeach; 
+						?>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"sciName">Scientific Name</label>
+				</th>
+				<td>
+					<input type="text" name="sciName">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"comName">Common Name</label>
+				</th>
+				<td>
+					<input type="text" name="comName">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"zone">Zone</label>
+				</th>
+				<td>
+					<input type="text" name="zone">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"light">Light</label>
+				</th>
+				<td>
+					<input type="text" name="light">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"height">Height</label>
+				</th>
+				<td>
+					<input type="text" name="height">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"width">Width</label>
+				</th>
+				<td>
+					<input type="text" name="width">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"bloomT">Bloom Time</label>
+				</th>
+				<td>
+					<input type="text" name="bloomT">
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for"link">More Information</label>
+				</th>
+				<td>
+					<input type="text" name="link">
+				</td>
+			</tr>
+		</table>
+		<div id="record_btn">
+			<input type="submit" name="update_flower" value="UPDATE">
+		</div>
+		<div id="err">
+			<?php
+				if(!empty($error_msg))
+				{
+					echo $error_msg;
+				}
+				if(!empty($error_msg9))
+				{
+					echo $error_msg9;
+				}
+				if(!empty($error_msg10))
+				{
+					echo $error_msg10;
+				}
+				if(!empty($error_msg11))
+				{
+					echo $error_msg11;
+				}
+				if(!empty($error_msg12))
+				{
+					echo $error_msg12;
+				}
+				if(!empty($error_msg13))
+				{
+					echo $error_msg13;
+				}
+				if(!empty($error_msg14))
+				{
+					echo $error_msg14;
+				}
+				if(!empty($error_msg15))
+				{
+					echo $error_msg15;
+				}
+				if(!empty($error_msg16))
+				{
+					echo $error_msg16;
+				}
+				if(!empty($error_msgD))
+				{
+					echo $error_msgD;
+				}
+			?>
+		</div>
+	</form>
+	
+</div>
+
+	
+<!-- Output Flower table -->
+
+	<div>
+		<h2>Show All Bee Keepers</h2>
+
+		<?php
+			echo "<table>";
+				echo "<tr>";
+					echo "<th>Scientific Name</th>";
+					echo "<th>Common Name</th>";
+					echo "<th>Zone</th>";
+					echo "<th>Light</th>";
+					echo "<th>Height</th>";
+					echo "<th>Width</th>";
+					echo "<th>Bloom Time</th>";
+					echo "<th>More Information</th>";
+					echo "<th>Action</th>";
+				echo "</tr>";
+
+				//Output all records from Flower table
+			  foreach ($flowers as $flower) :
+					echo "<tr>";
+						echo	"<td>" . $flower['sciName'] . "</td>";
+						echo	"<td>" . $flower['comName'] . "</td>";
+						echo	"<td>" . $flower['zone'] . "</td>";
+						echo	"<td>" . $flower['light'] . "</td>";
+						echo	"<td>" . $flower['height'] . "</td>";
+						echo	"<td>" . $flower['width'] . "</td>";
+						echo	"<td>" . $flower['bloomT'] . "</td>";
+						echo	"<td>" . $flower['link'] . "</td>";
+						echo	"<td>"; 
+									echo '<form action="flower.php" method="post">';?>
+									<input type ="hidden" name="id" value="<?php echo $flower['id']; ?>">
+									<?php echo '<input type="submit" name="deleteRecord" value ="Delete">';
+									echo "</form>"; 
+						echo 	"</td>";
+					echo "</tr>";
+			endforeach;
+		  
+			echo "</table>";
+		?>
+	</div>
+			
+<?php include('inc/footer.php'); ?>
+
+

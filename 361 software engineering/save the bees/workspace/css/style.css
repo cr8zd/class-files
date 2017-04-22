@@ -1,0 +1,121 @@
+/*---Global---*/
+body {
+	background-color: #95822A;
+  font-family: sans-serif;
+	margin: 0 auto;
+	max-width: 92%;
+	padding: 0.5em;
+}
+
+#container {
+	max-width: 100%;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+label {
+	color: #18132B;
+	font-size: 14px;
+}
+
+/*---Typography---*/
+
+h2 {
+	font-size: 2em;
+	text-align: center;
+}
+
+p {
+	color: white;
+	font size: 14px;
+}
+
+/*--Tables--*/
+
+table {
+	margin: auto;
+	padding-bottom: 1%;
+	padding-top: 2%;
+}
+
+td {
+	padding: 1px 3px 3px 3px;
+	text-align: center;
+}
+
+th {
+	border-bottom: 2px solid black;
+	border-top: 1px solid black;
+	color: #18132B;
+	font-size: 14px;
+	letter-spacing: 0.1em;
+	padding: 1px 3px 3px 3px;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+/*-- HEADER -- */
+
+#header h1 {
+	text-align: center;
+}
+
+#nav{
+	border-bottom: 3px solid white;
+	border-top: 3px solid white;
+}
+
+#nav ul {
+	list-style: none;
+	padding: 1%;
+	text-align: center;
+}
+
+#nav ul li {
+	display: inline;
+	padding: 0 1em;
+}
+
+/*---Content---*/
+
+#err {
+	color: red;
+}
+
+#intro {
+	text-align: center;
+}
+
+tr:nth-child(even) {
+	color: #000000;
+}
+
+tr:nth-child(odd) {
+	color: #FFD823;
+}
+
+tr:nth-child(1) {
+	color: black;
+}
+
+#record_btn {
+	margin-top: 2%;
+	text-align: center;
+}
+
+/*---Footer---*/
+
+#footer {
+	clear: both;
+	margin: 1% auto 1% auto;
+	padding: 1%;
+	text-align: center;
+	width: 100%;
+}
+
+#footer p {
+	color: white;
+}
