@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      document.addEventListener('DOMContentLoaded', bindButtons);
+
+      function bindButtons(){
+        document.getElementById('zipSubmit').addEventListener('click', function(event){
+          var req = new XMLHttpRequest();
+          var location = document.getElementById('zip').value;
+          req.open("GET", "http://api.openweathermap.org/data/2.5/weather?"+(isNaN(location)? "q="+location : "zip="+location)+",us&appid=fa7d80c48643dfadde2cced1b1be6ca1", true);
+          
+          req.addEventListener('load',function(){
+            if(req.status >= 200 && req.status < 400){   
+     	      var response = JSON.parse(req.responseText);
+	      document.getElementById('temp').textContent = Math.round(response.main.temp * 9 / 5 - 459.67);
+	      document.getElementById('humi').textContent = response.main.humidity;
+              document.getElementById('city').textContent = response.name;
+	      document.getElementById('windDeg').textContent = response.wind.deg;
+	      document.getElementById('windSpe').textContent = response.wind.speed;
+            } else {
+              console.log("Error in network request: " + request.statusText);
+            }
+          });
+          req.send(null);
+          event.preventDefault();
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Location</legend>
+        <label for="zip">City or Zip</label>
+        <input type="text" name="zip" id="zip">
+        <input type="submit" id="zipSubmit">
+      </fieldset>
+    </form>
+    <div>
+      <h2>Weather</h2>
+      <ul>
+        <li><span>City: </span><span id="city"></span></li>
+	<li><span>Temp: </span><span id="temp"></span><span> Fahrenheit</span></li>
+	<li><span>Humidity: </span><span id="humi"></span><span>%</span></li>
+	<li><span>Wind: </span><span id="windDeg"></span><span> deg at </span><span id = "windSpe"></span><span> mph</span></li>
+      </ul>
+    </div>
+  </body>
+</html>

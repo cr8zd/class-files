@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+          app.post('/',function(req,res,next){
+ var context = {};
+
+	var payload = {
+		"url":"http://api.bls.gov/publicAPI/v2/timeseries/data/",
+		"method":"POST",
+		"headers":{"Content-Type":"application/json"},
+		"body":'{"seriesid":["LAUCN040010000000005", "LAUCN040010000000006"]}'
+	}
+
+	request(payload, function(err, response, body){
+	 	if(!err && response.statusCode < 400){
+ 			context.owm = body;
+			console.log(context.owm);
+		}
+	});
+});
+    </script>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>URL Shortener</legend>
+        <label for="longUrl"></label>
+        <input type="text" name="longUrl" id="longUrl">
+        <input type="submit" id="urlSubmit">
+      </fieldset>
+    </form>
+    <div>
+      <h2>Result</h2>
+      <ul>
+        <li><span>Original URL:</span><span id="originalUrl"></span></li>
+        <li><span>Short URL:</span><span id="shortUrl"></span></li>
+      </ul>
+    </div>
+  </body>
+</html>

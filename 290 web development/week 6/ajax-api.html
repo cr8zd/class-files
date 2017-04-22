@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>URL Shortener</legend>
+        <label for="zip"></label>
+        <input type="text" name="zip" id="zip">
+        <input type="submit" id="zipSubmit">
+      </fieldset>
+    </form>
+    <div>
+      <h2>Result</h2>
+      <ul>
+        <li><span>City: </span><span id="city"></span></li>
+	<li><span>Temp: </span><span id="temp"></span></li>
+	<li><span>Humidity: </span><span id="humi"></span></li>
+        <li><span>Rain: </span><span id="rain"></span></li>
+	<li><span>Wind: </span><span id="windDeg"></span><span> deg at </span><span id = "windSpe"></span><span> mph</span></li>
+      </ul>
+    </div>
+    <script>
+      var req = new XMLHttpRequest();
+      req.open("GET", "http://api.openweathermap.org/data/2.5/weather?zip=98042,us&appid=fa7d80c48643dfadde2cced1b1be6ca1", false);
+      req.send(null);
+      var response = JSON.parse(req.responseText);
+      console.log(response);
+      document.getElementById('temp').textContent = Math.round(response.main.temp * 9 / 5 - 459.67);
+      document.getElementById('humi').textContent = response.main.humidity;
+      document.getElementById('city').textContent = response.name;
+      console.log(response.rain);
+      document.getElementById('windDeg').textContent = response.wind.deg;
+      document.getElementById('windSpe').textContent = response.wind.speed;
+    </script>
+  </body>
+</html>

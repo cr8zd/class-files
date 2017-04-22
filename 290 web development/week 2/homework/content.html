@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+            <title>How to get (Un)Employment Data from the BLS</title>
+            <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+    <body>
+        <div class="title">
+            <h1>How-To get (Un)Employment Data from the Bureau of Labor Statistics</h1>
+            <p>by Jennifer Frase</p>
+	</div>      
+            <div class="nav">
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="get_id.html">Get Series ID</a></li>
+                    <li><a href="content.html">Using GET call</a></li>
+                    <li><a href="content.html">Using POST calls</a></li>
+                </ul>
+            </div>
+        <div class="inner-content">	
+            <div class="content">
+                <h2 class="page-header">GET Your Data</h2>
+		<h3>Raw API Data</h3>
+                <p>  
+                     For this section of the how-to we will look at what
+		     the api returns and how best to parse through it, including the differences between 
+		     the three versions. Since the GET calls are the easiest, we will look at those first. 
+		     From there we will take a look at the first POST call and then point out any differences
+		     between it and the last POST call. 
+                </p>
+                <p>      
+                     In this part of the how-to we will be focusing on the Local Area Unemployment Statistics.
+                     However, once you get the hang of one catagory you can get the general feel for all the
+                     other catagoies as well.
+                </p>
+		<p>      
+                     For all calls except 
+		<a href=http://www.bls.gov/developers/api_signature_v2.htm#parameters>v2's second POST call</a>
+		     , the return data will look like the picture below. This means you can see things like
+		     how long the request took, if there are any messages attached to the return data, as well
+                     as the data itself. In addition, each piece data comes with the year, the month (M13 for
+		     annual) and any footnote about that data.
+                </p>
+		<a href="response.png"><img src="response.png"></a>
+		<p>      
+                     There are a couple of things you need to take note of. The first is that we will be using the
+		     express and request packages for this how to, so if you don't have those you will need to
+                     install them. The other thing to note is that this how-to doesn't cover error checking. But I 
+                     will point our where you can do so. To find out more about the types of errors you may get,
+                     you will need to check out 
+		     <a href=http://www.bls.gov/developers/api_faqs.htm>this page</a>
+ 		     for common text errors and http errors. 
+		</p>
+		<p>
+		     Text errors will return with an http response code of
+ 		     200 but the content of the message will look similar to the below picture. As such when error
+		     checking you will need to look at the message part of the response. If no error has occurred
+  		     message should be empty. This how-to will not go over what to do in case of an error as that
+		     that is really up to the developer, but we will go over when and where you can catch these
+		     errors.
+                </p>
+		<a href="texterror.bmp"><img src="texterror.bmp"></a>
+                </p>
+                <h3>GET Calls: Single series</h3>
+                <p>
+                      Okay, now for some actual coding. Lets take a look first at the call to the server:
+                </p>
+		<a href="GET.png"><img src="GET.png"></a>
+		<p>
+		      Lets first look at the function call line : <code>app.get('/h9',function(req,res,next){</code>.
+		      For this function we are assuming that the request data that was sent to the function is a
+		      GET query. To find out what we are asking them to send we need to look at the request line:
+		      <code>request('http://api.bls.gov/publicAPI/v2/timeseries/data/' + req.query.seriesid, 
+		      function(err, response, body){</code>. Here we can see that we are taking a query name seriesid
+                      and attaching it to the web address for the api. If we look at the required format of the GET
+                      call we know that the seriesid holds the value of the series ID we are looking for.
+		</p>
+		<p>
+		      While looking at the request line, I'm sure you noticed the <code>function(err, response, body){</code>
+		      part of the line. This is our callback function. We have to have a callback function due to
+		<a href=https://en.wikipedia.org/wiki/Cross-origin_resource_sharing>CORS</a>. Without this part, we wont be
+		      allowed to get any data from the BLS. This is also where we will work with the data we get back
+ 		      from our request, which is stored in the body parameter of our callback function.
+		</p>
+		<p>
+      		      The first thing we do when we enter the function is check if our request succeed by checking
+                      if there wasn't an error and the response's statuscode was 200: <code>if(!err && response.statusCode == 200){</code>
+		      (as I said earlier, you will need to check the BLS for what other http status codes the 
+		      site might send you.) Once we varify that we got a response, we need to parse through it. For
+		      This we use <code>JSON.parse(body)</code>. This allows us to use dot notation to dereference
+		      the different parts of our code. From here on what you do is really determined by what you are
+		      wanting to do with the data. In this how-to I will simply be accessing the different parts and
+		      saving them.
+		</p>
+		<p>
+		      Once our data is parsed, you can check if there are any text error messages. If there is then you will
+		      need to handle the error and not try to access the data as that will throw an error. If the message field
+		      of our data is empty, then that means you can work on the Results field. Results's value is for some
+		      reason an array that always only has one thing, an object with the name series. Series's value is also
+		      always an array, but considering that the POST requests can take more than one series ID, at
+		      least this being an array makes sense. So to access the series data we need to dereference these
+		      fields and (since there is only one series ID for the GET call) access the first index of series in
+		      order to finally get to the data field. Data also is an array that holds 3 years worth in the form
+		      of objects. These objects are the things we need to derefernce to get to the values we are looking
+		      to store.
+		</p>
+		<p>
+		      In order to get to these values, we need to loop through all the objects in the data field. We do
+		      this with the line: <code>while(myseries.series[0].data[myi] != undefined){</code>. From there
+		      we can save that object's field values.
+		</p>
+		<code>
+		      context.seriesid = myseries.series[0].seriesid;<br>
+		      context.series.push({"value":myseries.series[0].data[myi].value,<br>
+					   "month":myseries.series[0].data[myi].periodName,<br>
+					   "year":myseries.series[0].data[myi].year,<br>
+		</code>
+		
+		<p>
+		      The first thing we do is save the series ID to context so that the html page we send this data
+		      to can display it. Then we save all the values in each object into another object that we push
+		      onto the array series, which we had made earlier in the function. Once all of the object are
+  		      processed, we can go ahead and render the html page we are sending this data to: 
+		      <code>res.render('home',context);</code>. In this case I am calling the html page home and
+		      sending it the data for the requested series ID.
+		</p>
+		<p>
+		      Everything after all of that is where you will handle http errors. In this case I am simply sending
+		      the error on to the next appropriate function that can handle the error. However, if you want to
+	  	      handle errors inside of the function simply remove the next parameter for the function call:
+		      <code>app.get('/h9',function(req,res,next)</code>. After substitute <code>next(err);</code> with 
+		      your error handling code.
+		</p>
+            </div>
+        </div>
+    </body>
+</html>

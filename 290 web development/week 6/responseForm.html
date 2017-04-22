@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      document.addEventListener('DOMContentLoaded', bindButtons);
+
+      function bindButtons(){
+        document.getElementById('textSubmit').addEventListener('click', function(event){
+          var req = new XMLHttpRequest();
+          req.open("POST", "http://httpbin.org/post", true);
+          req.setRequestHeader('Content-Type', 'application/json');
+          req.addEventListener('load',function(){
+            if(req.status >= 200 && req.status < 400){   
+              var response = JSON.parse(req.responseText);
+              document.getElementById('formText').textContent = response.data;
+            } else {
+              console.log("Error in network request: " + request.statusText);
+            }
+          });
+          req.send(document.getElementById('sending').value);
+          event.preventDefault();
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <form>
+      <fieldset>
+        <legend>Send and Recieve</legend>
+        <label for="sending">Type something to send: </label>
+        <input type="text" name="sending" id="sending">
+        <input type="submit" id="textSubmit">
+      </fieldset>
+    </form>
+    <div>
+      <h2>Recieved</h2>
+      <span id="formText"></span>
+    </div>
+  </body>
+</html>
