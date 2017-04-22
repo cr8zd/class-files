@@ -1,0 +1,57 @@
+# depslib dependency file v1.0
+1425271777 source:c:\users\jennifer\desktop\classes\162\assignments\4\tournament\tournament.cpp
+	<iostream>
+	<new>
+	<cstdlib>
+	<ctime>
+	<string>
+	<queue>
+	<map>
+	"Creature.h"
+	"Goblin.h"
+	"Barbarian.h"
+	"Blue.h"
+	"Reptile.h"
+	"Shadow.h"
+	"response_check.h"
+
+1425265200 c:\users\jennifer\desktop\classes\162\assignments\4\tournament\creature.h
+	<iostream>
+	<new>
+	<string>
+	<cstdlib>
+
+1425259281 c:\users\jennifer\desktop\classes\162\assignments\4\tournament\goblin.h
+	"Creature.h"
+	<cstdlib>
+	<ctime>
+	<iostream>
+	<string>
+
+1425259281 c:\users\jennifer\desktop\classes\162\assignments\4\tournament\barbarian.h
+	"Creature.h"
+	<iostream>
+	<string>
+	<cstdlib>
+
+1425259281 c:\users\jennifer\desktop\classes\162\assignments\4\tournament\blue.h
+	"Creature.h"
+	<iostream>
+	<string>
+	<cstdlib>
+
+1425259281 c:\users\jennifer\desktop\classes\162\assignments\4\tournament\reptile.h
+	"Creature.h"
+	<iostream>
+	<string>
+	<cstdlib>
+
+1425259281 c:\users\jennifer\desktop\classes\162\assignments\4\tournament\shadow.h
+	"Creature.h"
+	<cstdlib>
+	<string>
+
+1424048519 c:\users\jennifer\desktop\classes\162\assignments\4\tournament\response_check.h
+	<iostream>
+	<climits>
+
